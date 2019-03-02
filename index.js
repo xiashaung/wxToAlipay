@@ -1,8 +1,8 @@
 const wxmlToAxml = require('./lib/wxml/index')
-const wxmlInclude = require('./lib/wxml/include')
 const wxssToAcss = require('./lib/wxss/index')
 const jsToAli = require('./lib/js/index')
-const parseJson = require('./lib/json/index')
+const appJson = require('./lib/json/app')
+const pageJson = require('./lib/json/page')
 const wxsToJs = require('./lib/wxs/index')
 const svgToPng = require('./lib/svg/index')
 const fs = require('file-system')
@@ -94,42 +94,6 @@ ${contents.trim()}`;
   fs.copyFileSync(getFilePath('lib/js/es.reflect.js'), path.join(dest, 'es.reflect.js'))
 }
 
-function fixedWxmlInclude (dest) {
-  let appJson = fs.readFileSync(path.join(dest, 'app.json'), { encoding: 'utf8' })
-
-  appJson = JSON.parse(appJson)
-
-
-  let pagePath = []
-
-  appJson.pages.forEach(item => {
-    let wxmlpath = path.join(dest, item + '.axml')
-
-    pagePath.push(wxmlpath)
-
-    let code = fs.readFileSync(wxmlpath, { encoding: 'utf8' })
-
-    fs.writeFileSync(wxmlpath, wxmlInclude(code, dest, wxmlpath), { encoding: 'utf8' })
-  })
-
-  // 删掉非页面和非模块的模板
-  fs.recurseSync(dest, ['**/*.axml'], function(filepath) {
-    if (pagePath.includes(filepath)) return
-
-    let jsonPath = filepath.replace(/\.axml$/, '.json')
-
-    if (fs.existsSync(jsonPath)) {
-      let code = fs.readFileSync(jsonPath, { encoding: 'utf8' })
-
-      code = JSON.parse(code)
-
-      if (code.component) return
-    }
-
-    fs.unlinkSync(filepath)
-  });
-}
-
 function wxToalipay ({
   src,
   dest,
@@ -151,7 +115,7 @@ function wxToalipay ({
   }
 
   filter = [
-    `**/*.{js,wxss,wxml, wxs,json, png, jpg, svg}`,
+    `**/*.{js,wxss,wxml, wxs,json, png, jpg${svgToImage ? '': ',svg'}}`,
     '!project.config.json',
     '!node_modules/**/*',
   ].concat(filter)
@@ -189,16 +153,19 @@ function wxToalipay ({
         case 'wxml':
           destFilepath = path.join(dest, relative.replace(/\.wxml$/, '.axml'));
           contents = wxmlToAxml(contents, {
-            warn: warn[relative],
-            filepath,
-            root: dest
+            svgToImage,
+            warn: warn[relative]
           })
           break
         case 'json':
-          contents = parseJson(contents, relative === 'app.json')
+          if (relative === 'app.json') {
+            contents = appJson(contents)
+          } else {
+            contents = pageJson(contents)
+          }
           break
         case 'wxs':
-          destFilepath = path.join(dest, relative.replace(/\.wxs$/, '.sjs'))
+          destFilepath = path.join(dest, relative.replace(/\.wxs$/, '.wxs.js'))
           contents = wxsToJs(contents)
           break
       }
@@ -222,11 +189,18 @@ function wxToalipay ({
 
   copyPolyFill(getFilePath('lib/js/shim.js'), dest)
 
-
-  // 解决include标签bug
-  fixedWxmlInclude(dest)  
-
   printWarn(warn)
+
+  if (svgToImage) {
+    let svgfiles = {}
+
+    fs.recurseSync(src, ['**/*.svg'], function(filepath, relative, filename) {
+      svgfiles[filepath] = path.join(dest, path.dirname(relative), '_svg')
+    })
+
+    console.log('***svg打包成png***')
+    svgToPng(svgfiles)
+  }
 }
 
 

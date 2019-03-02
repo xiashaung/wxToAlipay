@@ -1,27 +1,60 @@
 {
-  "name": "wx-alipay",
-  "version": "0.5.0",
-  "description": "微信小程序转化为支付宝小程序",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --recursive"
+  "_args": [
+    [
+      {
+        "raw": "wx-alipay",
+        "scope": null,
+        "escapedName": "wx-alipay",
+        "name": "wx-alipay",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/xiashuang/Desktop"
+    ]
+  ],
+  "_from": "wx-alipay@latest",
+  "_id": "wx-alipay@0.4.0",
+  "_inCache": true,
+  "_location": "/wx-alipay",
+  "_nodeVersion": "8.9.4",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/wx-alipay_0.4.0_1521814270617_0.6543620717910357"
+  },
+  "_npmUser": {
+    "name": "douzi",
+    "email": "liaowei@lechebang.com"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "wx-alipay",
+    "scope": null,
+    "escapedName": "wx-alipay",
+    "name": "wx-alipay",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/wx-alipay/-/wx-alipay-0.4.0.tgz",
+  "_shasum": "defb77f9359bec40be7efb3da79b6f0267af4180",
+  "_shrinkwrap": null,
+  "_spec": "wx-alipay",
+  "_where": "/Users/xiashuang/Desktop",
+  "author": {
+    "name": "douzi",
+    "email": "liaowei@lechebang.com"
   },
   "bin": {
     "wxToalipay": "bin/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/douzi8/wxToAlipay.git"
-  },
-  "keywords": [
-    "微信小程序"
-  ],
-  "author": "douzi <liaowei@lechebang.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/douzi8/wxToAlipay/issues"
   },
-  "homepage": "https://github.com/douzi8/wxToAlipay#readme",
   "dependencies": {
     "@babel/generator": "^7.0.0-beta.40",
     "@babel/template": "^7.0.0-beta.40",
@@ -29,6 +62,41 @@
     "babel-preset-es2015": "^6.24.1",
     "cssdom": "^1.0.21",
     "file-system": "^2.2.2",
-    "htmldom": "^3.0.4"
-  }
+    "htmldom": "^3.0.4",
+    "svg-to-png": "^3.1.2"
+  },
+  "description": "微信小程序转化为支付宝小程序",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-jlL1Z/Q0Ctm/ljxeY74S1vxrp3v598YHa4zZnq9Kse//b2UzlliNQEjRnNsnLJJAhbRlbUof1csxZGpjW7lG9Q==",
+    "shasum": "defb77f9359bec40be7efb3da79b6f0267af4180",
+    "tarball": "https://registry.npmjs.org/wx-alipay/-/wx-alipay-0.4.0.tgz",
+    "fileCount": 52,
+    "unpackedSize": 173833
+  },
+  "gitHead": "22de4ed8ecd1ab71497185933b545234112bbd2c",
+  "homepage": "https://github.com/douzi8/wxToAlipay#readme",
+  "keywords": [
+    "微信小程序"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "douzi",
+      "email": "liaowei@lechebang.com"
+    }
+  ],
+  "name": "wx-alipay",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douzi8/wxToAlipay.git"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "version": "0.4.0"
 }
