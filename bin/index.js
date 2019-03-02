@@ -4,9 +4,9 @@ var fs = require('fs');
 var argv = process.argv;
 const wxToalipay = require('../index')
 
-if (argv.length < 3) {
-  throw new Error('缺少毕业参数,如 wxToalipay --src=/weixin/min/')
-}
+// if (argv.length < 3) {
+//   throw new Error('缺少毕业参数,如 wxToalipay --src=/weixin/min/')
+// }
 
 argv.shift()
 argv.shift()
